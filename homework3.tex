@@ -1,0 +1,221 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3}
+\newcommand{\hmwkDueDate}{Oct 10, 2022}
+\newcommand{\hmwkClass}{Matrix Calculation}
+\newcommand{\hmwkClassTime}{Monday}
+\newcommand{\hmwkClassInstructor}{Professor Jun Lai}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\cp}{\cdot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+
+(Page 92, Problem 2.6.5)
+
+\begin{proof}
+    Set $u:=e_{i}$, $v:=\epsilon e_{j}$, we can see $A+\epsilon a_{ij}E_{ij}=A+uv^{T}$. Set $x=A^{-1}b$, $\tilde{x}=(A+\epsilon a_{ij})^{-1}b$, and $C:=A^{-1}$, we can see:
+    \begin{equation}
+        \tilde{x}=(A+uv^{t})^{-1}b=(C-\frac{Cuv^{t}C}{1+v^{t}Cu})b.
+    \end{equation}
+
+    Then:
+    \begin{equation}
+        x-\tilde{x}=\frac{Cuv^{t}Cb}{1+v^{t}Cu}=\frac{Cuv^{t}x}{1+\epsilon c_{ji}}=\frac{\epsilon x_{j}Ce_{i}}{1+\epsilon c_{ji}}=\frac{\epsilon x_{j}}{1+\epsilon c_{ji}}\begin{bmatrix}
+            c_{1i}\\
+            c_{2i}\\
+            \vdots\\
+            c_{ni}\\
+        \end{bmatrix}.
+    \end{equation}
+
+    We can see:
+    \begin{equation}
+        \frac{\tilde{x}_{k}-x_{k}}{\epsilon}=-\frac{x_{j}}{1+\epsilon c_{ji}}c_{ki}\rightarrow -x_{j}c_{ki}.
+    \end{equation}
+\end{proof}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    
+(Page 120, Problem 3.2.2)
+\begin{proof}
+For matrix $A(\epsilon)=(a_{ij}(\epsilon))_{i,j=1}^{n}$, as the problem suggests, $a_{ij}(\epsilon)$ must be $C^{1}$ function. Then, for the principal matrices $A_{k}(\epsilon)=A(1:k,1:k)$, $\det(A_{k}(\epsilon))$ must be $C^{1}$ as well. And $\det(A_{k}(0))\neq 0$, so we can choose $\epsilon_{k}\in (0,w_{k})$ such that $\det(A_{k}(\epsilon_{k}))\neq 0$, where $w_{k}>0$. Then set $w=\min_{k=1}^{N}w_{k}$, we can see $w>0$ and $\forall\epsilon\in(0,w)$, $\det(A_{k}(\epsilon))\neq 0$. This means that $A(\epsilon)$ has an LU factorization.
+
+Then, using induction to prove the property of the LU factorization. For $n=1$, we can see $L=(1)$ and $U=(a_{11}(\epsilon))$, $L$ and $U$ are both $C^{1}$. Assume this factorization exists for $n=k$, consider $n=k+1$, in this condition, 
+\begin{equation}
+    A(\epsilon)=\begin{bmatrix}
+        A_{k}(\epsilon)&\beta(\epsilon)\\
+        \alpha^{t}(\epsilon)&\varphi(\epsilon)
+    \end{bmatrix}.
+\end{equation}
+By induction, $A_{k}(\epsilon)=L_{k}(\epsilon)U_{k}(\epsilon)$ where $L_{k}, U_{k}$ both non-regular.
+
+Then, set 
+\begin{equation}
+    L(\epsilon)=\begin{bmatrix}
+        L_{k}(\epsilon)&0\\
+        U_{k}^{-1}(\epsilon)\alpha^{t}(\epsilon)&1\\
+    \end{bmatrix},
+    U(\epsilon)=\begin{bmatrix}
+        U_{k}(\epsilon)&L_{k}(\epsilon)^{-1}\beta(\epsilon)\\
+        0&\varphi(\epsilon)-\alpha(\epsilon)(U_{k}^{-1}(\epsilon))^{t}L_{k}^{-1}(\epsilon)\beta(\epsilon)\\
+    \end{bmatrix}.
+\end{equation}
+We can see $L(\epsilon)U(\epsilon)=A(\epsilon)$, and they are both $C^{1}$.
+\end{proof}
+\end{homeworkProblem}
+\end{document}
