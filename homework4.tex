@@ -1,0 +1,233 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{Oct 17, 2022}
+\newcommand{\hmwkClass}{Matrix Calculation}
+\newcommand{\hmwkClassTime}{Monday}
+\newcommand{\hmwkClassInstructor}{Professor Jun Lai}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\cp}{\cdot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    (P136 Problem1)
+
+    By the definition of matrix production, we can see:
+    \begin{equation}
+        \begin{bmatrix}
+            a_{1}^{t}\\
+            a_{2}^{t}\\
+            \vdots\\
+            a_{n}^{t}\\
+        \end{bmatrix}
+        =\begin{bmatrix}
+            l_{11}& & & &\\
+            l_{21}&l_{22}& & &\\
+            \vdots&\vdots&\ddots& &\\
+            l_{n1}&l_{n1}&\cdots&l_{nn}&\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            u_{1}^{t}\\
+            u_{2}^{t}\\
+            \vdots\\
+            u_{n}^{t}\\
+        \end{bmatrix}
+    \end{equation}
+    As $l_{ii}=1$, we can see that 
+    \begin{equation}
+        u_{i}^{t}=a_{i}^{t}-\sum_{j=1}^{i-1}l_{ij}u_{j}^{t}.
+    \end{equation}
+    To prove $\|U\|_{\infty}\le 2^{n-1}\|A\|_{\infty}$, I use induction on the row order $k\le n$. First, I claim that 
+    \begin{equation}
+        \|u_{k}^{t}\|_{1}\le 2^{k-1}\|A\|_{\infty}.
+    \end{equation}
+    For $k=1$, we can see $\|u_{1}^{t}\|_{1}=\|a_{1}^{t}\|_{1}\le\|A\|_{\infty}$.
+
+    Assume the result is true for $k\le k_{0}$, for $k=k_{0}+1$, we can see:
+    \begin{equation}
+        \|u_{k_{0}+1}\|_{1}\le\|a_{k_{0}+1}\|_{1}+\sum_{j=1}^{k_{0}}|l_{ij}|\|u_{j}\|_{1}\le\|A\|_{\infty}+\sum_{j=1}^{k_{0}}2^{j-1}\|A\|_{\infty}=2^{k_{0}}\|A\|_{\infty}
+    \end{equation}
+    This equation shows that $(3)$ is correct. And $(3)$ suggests that $\|U\|_{\infty}\le 2^{n-1}\|A\|_{\infty}$, as $\|U\|_{\infty}=\max{\|u_{i}\|_{1}}$.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    (P158 Problem1)
+
+    Assume the matrix $A$ is singular, it suggests that $\exists x\neq 0$ such that $Ax=0$. Write $x=\begin{bmatrix}
+        x_{1}\\
+        x_{2}\\
+        \vdots\\
+        x_{n}\\
+    \end{bmatrix}$, assume $|x_{i}|=\max_{j}\{|x_{j}|\}$, consider the ith row of matrix A, we can see:
+    \begin{equation}
+        \sum a_{ij}x_{j}=0.
+    \end{equation}
+    $(5)$ suggests that 
+    \begin{equation}
+        a_{ii}=-\sum_{j\neq i}a_{ij}\frac{x_{j}}{x_{i}}.
+    \end{equation}
+    Then:
+    \begin{equation}
+        |a_{ii}|\le\sum_{j\neq i}|a_{ij}|.
+    \end{equation}
+    Contradict to the strict diagonal advantage. So matrix $A$ must be nonsingular.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    (P158 Problem2)
+
+    $A$ is row diagonally dominant means that $A^{t}$ is column diagonally dominant, then use theorem 4.1.2, we can see that $\|(A^{t})^{-1}\|_{1}\le\frac{1}{\delta}$. It's clear that $A^{t}_{1}=\|A\|_{\infty}$, so $\|A^{-1}\|_{\infty}\le\frac{1}{\delta}$.
+\end{homeworkProblem}
+\end{document}
