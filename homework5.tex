@@ -1,0 +1,241 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{Oct 24, 2022}
+\newcommand{\hmwkClass}{Matrix Calculation}
+\newcommand{\hmwkClassTime}{Monday}
+\newcommand{\hmwkClassInstructor}{Professor Jun Lai}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\cp}{\cdot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+(P173 Problem4.2.3)
+
+(a) By definition, 
+\begin{equation}
+\norm{A^{-1}}_{2}=\sup_{x\in\mathbb{R}^{n}}\frac{\norm{A^{-1}x}}{\norm{x}}=\sup_{y\in\mathbb{R}^{n}}\frac{\norm{y}}{\norm{Ay}}
+\end{equation}
+
+so:
+\begin{equation}
+    \begin{aligned}
+    \norm{A^{-1}}_{2}^{-1}&=\inf_{\norm{y}=1}\norm{Ay}\\
+    &=\inf_{\norm{y}=1}\norm{Ay}\norm{y}\\
+    &\ge\inf_{\norm{y}=1}y^{t}Ay=\inf_{\norm{y}=1}y^{t}Ty=\norm{T^{-1}}_{2}^{-1}
+    \end{aligned}
+\end{equation}
+The final equation is derived by the positive definity of matrix $A$. So it's clear that $\norm{A^{-1}}_{2}\le\norm{T^{-1}}_{2}$.
+
+By definition, $T^{-1}-A^{-1}=T^{-1}(A-T)A^{-1}=T^{-1}SA^{-1}$, we can see:
+\begin{equation}
+    \begin{aligned}
+        &x^{t}(T^{-1}-A^{-1})x\\
+        =&x^{t}T^{-1}SA^{-1}x\\
+        =&(A^{-1}x+(T^{-1}-A^{-1})x)^{t}SA^{-1}x\\
+        =&(A^{-1}x+T^{-1}SA^{-1}x)^{t}SA^{-1}x\\
+        =&(A^{-1}x)^{t}SA^{-1}x+(SA^{-1}x)^{t}(T^{-1})^{t}SA^{-1}x\\
+        \ge&0
+    \end{aligned}
+\end{equation}
+and the final inequality is derived by the anti-symmetrical of $S$, and positive-definity of $T^{-1}$.
+
+(b)By the definition of matrix norm,
+\begin{equation}
+    \norm{D^{-1}}_{2}=\norm{M^{t}A^{-1}L}_{2}\le\norm{A^{-1}}_{2}\le\norm{T^{-1}}_{2}.
+\end{equation}
+
+So $\frac{1}{d_{k}}\le\norm{T^{-1}}_{2}$ $\forall k\Rightarrow d_{k}\ge\frac{1}{\norm{T^{-1}}_{2}}$.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    Example:
+    \begin{equation}
+        A=\begin{bmatrix}
+        1&-1\\
+        1&1\\
+        \end{bmatrix}
+    \end{equation}
+    then:
+    \begin{equation}
+    \begin{bmatrix}
+        x&y\\
+    \end{bmatrix}
+    A\begin{bmatrix}
+        x\\
+        y\\
+    \end{bmatrix}=x^{2}+y^{2}\ge 0.
+\end{equation}
+For real vector, the value equals zero if and only if $x=y=0$. For complex vector, we can see:
+\begin{equation}
+    \begin{bmatrix}
+        i&1
+    \end{bmatrix}
+    \begin{bmatrix}
+        1&-1\\
+        1&1\\
+    \end{bmatrix}
+    \begin{bmatrix}
+        -i\\
+        1\\
+    \end{bmatrix}=2-2i\notin\mathbb{R}.
+\end{equation}
+so $A$ isn't positive definite as $\mathbb{C}^{2\times 2}$.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    Using theorem 4.2.3, to show $A$ positive definite, it suffices to show $T=\frac{A+A^{t}}{2}$ has positive eigenvalues. As both $A$ and $A^{t}$ are strictly diagonally dominant, we can see that $T$ is strictly diagonally dominant. The diagonal elements of $T$ are positive, i.e. $T$ is positive definite, so the eigenvalues of $T$ are all positive.So $A$ positive definite.
+\end{homeworkProblem}
+\end{document}
