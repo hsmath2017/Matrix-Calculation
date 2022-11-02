@@ -1,0 +1,220 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Nov 7, 2022}
+\newcommand{\hmwkClass}{Matrix Calculation}
+\newcommand{\hmwkClassTime}{Monday}
+\newcommand{\hmwkClassInstructor}{Professor Jun Lai}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\cp}{\cdot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+(Page 232,Problem 4.8.8)
+
+For a point $P$ whose discretrize stencil is totally inside the domain $\Omega$, the equation below is true:
+\begin{equation}
+    \frac{u(N)+u(S)+u(E)+u(W)-4u(P)}{h^{2}}=F(P).
+\end{equation}
+Assume the identifier of grid is the same as Figure 4.8.1, then for boundary cells near the left-side, a.g. $u_{n_{1}+1}$, we can write the following discreterize equation:
+\begin{equation}
+    4u_{n_{1}+1}-u_{1}-u_{2}-u_{2n_{1}+1}=h^{2}F_{n_{1}+1}.
+\end{equation}
+while the equation is derived by $(1)$ and boundary condition $u|_{x=0}=0$.
+
+For the bottom side of the problem domain, we can use totally the same method to discuss this problem. Then, for the Neumann-Boundary side points, such as $u_{2}$, it's a good idea to use so-called \textbf{Ghost Cell} to handle it. But we can also write the discreterize function like this:
+\begin{equation}
+    \left\{
+        \begin{aligned}
+            \frac{u_{1}+u_{3}+u_{n_{1}+2}+u_{G}-4u_{2}}{h^{2}}&=F(2)\\
+            \frac{u_{G}-u_{n_{1}+2}}{2h}&=0\\
+        \end{aligned}
+    \right.
+\end{equation}
+This discreterized equation is derived by the homogenious Neumann boundary condition. $(1)$, $(2)$ and $(3)$ makes the coefficient matrix $A$. And in the same time, the right-hand vector $b$ can be derived by the function $F$, which is:
+\begin{equation}
+    b=h^{2}\begin{bmatrix}
+        F(1)\\
+        \vdots\\
+        F(n_{1}n_{2}).\\
+    \end{bmatrix}
+\end{equation}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+(Page 244,Problem 5.1.1)
+
+Set the vector
+\begin{equation}
+    v=\frac{\|x\|}{\|y\|}y-x,
+\end{equation}
+and the projection matrix 
+\begin{equation}
+    P=I-\frac{2}{v^{t}v}vv^{t},
+\end{equation}
+$P$ is just the Householder matrix which maps $x$ to a multiple of $y$. Now I try to varify this equation.
+    \begin{equation}
+        \begin{aligned}
+            Px&=(I-\frac{2}{v^{t}v})vv^{t}x\\
+            &=(I-\frac{2}{v^{t}v}vv^{t})(\frac{\|x\|}{\|y\|}y-v)\\
+            &=v+\frac{\|x\|}{\|y\|}y-\frac{2\|x\|}{v^{t}v\|y\|}vv^{t}y\\
+            &=\frac{2\|x\|}{\|y\|}y-x-\frac{2\|x\|}{v^{t}v\|y\|}vv^{t}y\\
+            &=\frac{2\|x\|}{\|y\|}y-x-\frac{2\|x\|(\|x\|\|y\|-x^{t}y)}{v^{t}v\|y\|}(\frac{\|x\|}{\|y\|}y-x)\\
+            &=\frac{\|x\|}{\|y\|}y.
+        \end{aligned}
+    \end{equation}
+\end{homeworkProblem}
+\end{document}
