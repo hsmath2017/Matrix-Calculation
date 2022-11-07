@@ -195,26 +195,32 @@ This discreterized equation is derived by the homogenious Neumann boundary condi
 \end{equation}
 \end{homeworkProblem}
 \begin{homeworkProblem}
-(Page 244,Problem 5.1.1)
+(Page 245,Problem 5.1.8)
 
-Set the vector
+First, I derive that $Q$ is an orthogonal matrix.
 \begin{equation}
-    v=\frac{\|x\|}{\|y\|}y-x,
+    \begin{aligned}
+    QQ^{t}&=(I+S)(I-S)^{-1}(I-S^{T})^{-1}(I+S^{T})\\
+    &=(I+S)(I-S)^{-1}(I+S)^{-1}(I-S)\\
+    &=(I+S)(I+S)^{-1}(I-S)^{-1}(I-S)\\
+    &=I.
+    \end{aligned}
 \end{equation}
-and the projection matrix 
+It means that $Q$ is an orthogonal matrix.
+
+Assume the Householder transformation from $x$ to $\|x\|e_{1}$ is 
 \begin{equation}
-    P=I-\frac{2}{v^{t}v}vv^{t},
+    H=I-\beta vv^{t},
 \end{equation}
-$P$ is just the Householder matrix which maps $x$ to a multiple of $y$. Now I try to varify this equation.
-    \begin{equation}
-        \begin{aligned}
-            Px&=(I-\frac{2}{v^{t}v})vv^{t}x\\
-            &=(I-\frac{2}{v^{t}v}vv^{t})(\frac{\|x\|}{\|y\|}y-v)\\
-            &=v+\frac{\|x\|}{\|y\|}y-\frac{2\|x\|}{v^{t}v\|y\|}vv^{t}y\\
-            &=\frac{2\|x\|}{\|y\|}y-x-\frac{2\|x\|}{v^{t}v\|y\|}vv^{t}y\\
-            &=\frac{2\|x\|}{\|y\|}y-x-\frac{2\|x\|(\|x\|\|y\|-x^{t}y)}{v^{t}v\|y\|}(\frac{\|x\|}{\|y\|}y-x)\\
-            &=\frac{\|x\|}{\|y\|}y.
-        \end{aligned}
-    \end{equation}
+then:
+\begin{equation}
+    \begin{aligned}
+        (I+S)(I-S)^{-1}&=I-\beta vv^{t}\\
+        (I+S)&=(I-S)(I-\beta vv^{t})\\
+        S(2I-\beta vv^{t})&=-\beta vv^{t}\\
+        S&=-\beta(2I-\beta vv^{t})^{-1}vv^{t}.
+    \end{aligned}
+\end{equation}
+This is exactly the rank-2 anti-symmetric matrix $S$.
 \end{homeworkProblem}
 \end{document}
