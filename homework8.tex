@@ -1,0 +1,235 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#8}
+\newcommand{\hmwkDueDate}{Nov 14, 2022}
+\newcommand{\hmwkClass}{Matrix Calculation}
+\newcommand{\hmwkClassTime}{Monday}
+\newcommand{\hmwkClassInstructor}{Professor Jun Lai}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\cp}{\cdot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    Set the matrix
+    \begin{equation}
+        Q:=\left[\beta_{1},\cdots,\beta_{n}\right].
+    \end{equation}
+    we can see that 
+    \begin{equation}
+        Q^{T}=\begin{bmatrix}
+            \beta_{1}^{T}\\
+            \vdots\\
+            \beta_{n}^{T}\\
+        \end{bmatrix}
+    \end{equation}
+    Assume the matrix $R$ can be represented as 
+    \begin{equation}
+        R=\begin{bmatrix}
+            l_{1}^{T}\\
+            \vdots\\
+            l_{n}^{T}\\
+        \end{bmatrix}
+    \end{equation}
+    while $l_{n}=re_{n}$. By the equation $Q^{T}A-DQ^{T}=R$, we can see:
+    \begin{equation}
+        (A^{T}-d_{i}I)\beta_{i}=l_{i}^{T}.
+    \end{equation}
+    First we consider the vector $\beta_{n}$. By equation $(A^{t}-d_{n}I)\beta_{n}=l_{n}^{t}=re_{n}$, we set 
+    \begin{equation}
+        \beta_{n}=\frac{(A^{t}-d_{n}I)^{-1}e_{n}}{\norm{(A^{t}-d_{n}I)^{-1}e_{n}}}.
+    \end{equation}
+    $\beta_{n}$ is the induction basis, and by $\beta_{n}$ we can write the vector $l_{n}$.
+
+    Then, assume $\beta_{n},\cdots,\beta_{m}$ are determined, for $\beta_{m-1}$, set linear space $V=\text{span}\{e_{m-1},e_{m},\cdots,e_{n}\}$, we can see that $\beta_{m-1}\in (A^{T}-d_{m-1}I)^{-1}V$. Finally, by Gram-Schmidt orthogonal process, we can derive $\beta_{m-1}$ with aid of $\beta_{m},\cdots,\beta_{n}$.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    \solution  
+    
+    First, we can see that
+    \begin{equation}
+        \hat{r}-r=A(x-\hat{x}).
+    \end{equation}
+    Then, as the following equations are both true:
+    \begin{equation}
+        \begin{aligned}
+        \left.
+            \begin{aligned}
+                (A^{T}A+F)x&=A^{T}b+Fx,\\
+                (A^{T}A+F)\hat{x}&=A^{T}b.\\
+            \end{aligned}
+        \right\} 
+        &\Rightarrow (A^{T}A+F)(x-\hat{x})=Fx\\
+        &\Rightarrow x-\hat{x}=(A^{T}A+F)^{-1}Fx\\
+        &\Rightarrow \hat{r}-r=A(A^{T}A+F)^{-1}Fx.\\
+        \end{aligned}
+    \end{equation}
+    Then, assume the SVD of $A$ is $A=P\Sigma Q^{T}$, then we can see that:
+    \begin{equation}
+        \begin{aligned}
+            \norm{A(A^{T}A+F)^{-1}}_{2}&=\norm{\Sigma Q^{T}(A^{T}A+F)^{-1}}_{2}\\
+            &=\norm{\Sigma Q^{T}(Q\Sigma^{2}Q^{T}+F)^{-1}}_{2}\\
+            &=\norm{\Sigma \left[(Q\Sigma^{2}Q^{T}+F)Q\right]^{-1}}_{2}\\
+            &=\norm{\Sigma(Q\Sigma^{2}+FQ)^{-1}}_{2}\\
+            &\le 2\norm{A^{-1}}_{2}.
+        \end{aligned}
+    \end{equation}
+    So:
+    \begin{equation}
+        \norm{\hat{r}-r}_{2}\le2\norm{A^{-1}}_{2}\norm{F}_{2}\norm{x}_{2}\le2\kappa_{2}(A)\frac{\norm{F}_{2}}{\norm{A}_{2}}\norm{x}_{2}.
+    \end{equation}
+\end{homeworkProblem}
+\end{document}
