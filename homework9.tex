@@ -1,0 +1,275 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#9}
+\newcommand{\hmwkDueDate}{Nov 21, 2022}
+\newcommand{\hmwkClass}{Matrix Calculation}
+\newcommand{\hmwkClassTime}{Monday}
+\newcommand{\hmwkClassInstructor}{Professor Jun Lai}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\cp}{\cdot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+(Page 296,Problem 5.5.1)
+
+By the definition, 
+\begin{equation}
+    A=\begin{bmatrix}
+        T&S\\
+        O&O\\
+    \end{bmatrix}, X=\begin{bmatrix}
+        T^{-1}&O\\
+        O&O\\
+    \end{bmatrix}.
+\end{equation}
+We can see that 
+\begin{equation}
+    AX=\begin{bmatrix}
+        I&O\\
+        O&O\\
+    \end{bmatrix}=(AX)^{T},
+\end{equation}
+and 
+\begin{equation}
+    AXA=\begin{bmatrix}
+        I&O\\
+        O&O\\
+    \end{bmatrix}A=A.
+\end{equation}
+So $X$ is a (1,3) pseudoinverse of $A$.
+
+By the definition, if $x_{B}=Xb$, we can see that 
+\begin{equation}
+    x_{B}=\Pi\begin{bmatrix}
+        R_{11}^{-1}c\\
+        O\\
+    \end{bmatrix}
+    =\Pi\begin{bmatrix}
+        R_{11}^{-1}&O\\
+        O&O\\
+    \end{bmatrix}
+    Q^{T}b.
+\end{equation}
+So 
+\begin{equation}
+    X=\Pi\begin{bmatrix}
+        R_{11}^{-1}&O\\
+        O&O\\
+    \end{bmatrix}Q^{T}.
+\end{equation}
+Then:
+\begin{equation}
+    AX=A\Pi\begin{bmatrix}
+        R_{11}^{-1}&O\\
+        O&O\\
+    \end{bmatrix}
+    Q^{T}=Q\begin{bmatrix}
+        R_{11}&R_{12}\\
+        O&O\\
+    \end{bmatrix}
+    \begin{bmatrix}
+        R_{11}^{-1}&O\\
+        O&O\\
+    \end{bmatrix}Q^{T}
+    =\begin{bmatrix}
+        I&O\\
+        O&O\\
+    \end{bmatrix}=(AX)^{T}.
+\end{equation}
+and 
+\begin{equation}
+    AXA=A.
+\end{equation}
+It means that $X$ is the (1,3) pseudoinverse of $A$.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    By SVD, we can see that 
+    \begin{equation}
+        A=U\Sigma V^{T}, A^{+}=V\Sigma^{+}U^{T}.
+    \end{equation}
+    Then:
+    \begin{equation}
+        B(\lambda)=(A^{T}A+\lambda I)^{-1}A^{T}=V(\Sigma^{T}\Sigma+\lambda I)^{-1}V^{T}A^{T}.=V(\Sigma^{T}\Sigma+\lambda I)^{-1}\Sigma U^{T}.
+    \end{equation}
+    So 
+    \begin{equation}
+        B(\lambda)-A^{+}=V\left[(\Sigma^{T}\Sigma+\lambda I)^{-1}\Sigma-\Sigma^{+}\right]U^{T}.
+    \end{equation}
+    It means that 
+    \begin{equation}
+        \norm{B(\lambda)-A^{+}}_{2}=\norm{(\Sigma^{T}\Sigma+\lambda I)^{-1}\Sigma-\Sigma^{+}}_{2}.
+    \end{equation}
+    Consider the matrix righthand, on the $i$-th position, we can see 
+    \begin{equation}
+        a_{ii}=\frac{\sigma_{i}}{\sigma_{i}^{2}+\lambda}-\frac{1}{\sigma_{i}}=\frac{-\lambda}{\sigma_{i}(\sigma_{i}^{2}+\lambda)}, i\le r.
+        a_{ii}=0, i>r.
+        a_{ij}=0, i\neq j.
+    \end{equation}
+    So 
+    \begin{equation}
+        \norm{B(\lambda)-A^{+}}_{2}=\frac{\lambda}{\sigma_{r}(\sigma_{r}^{2}+\lambda)}.
+    \end{equation}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+(Page 301, P5.6.2)
+
+\begin{equation}
+    Ax=b\Rightarrow x=\lambda_{1}e_{1}+\frac{1}{2}\lambda_{2}e_{2}+\frac{1}{3}\lambda_{3}e_{3}.
+\end{equation}
+while $\lambda_{1}+\lambda_{2}+\lambda_{3}=1$. To minimize $\norm{x}$, just set $\lambda_{3}=1$ and $\lambda_{1}=\lambda_{2}=0$, then $x=\frac{1}{3}e_{3}$ is the minimal norm solution.
+\end{homeworkProblem}
+\end{document}
