@@ -1,0 +1,231 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#11}
+\newcommand{\hmwkDueDate}{Dec 12, 2022}
+\newcommand{\hmwkClass}{Matrix Calculation}
+\newcommand{\hmwkClassTime}{Monday}
+\newcommand{\hmwkClassInstructor}{Professor Jun Lai}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\cp}{\cdot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    (P383 Problem7.4.4)
+
+    Denote Hessenberg matrix 
+    \begin{equation}
+        H=\begin{bmatrix}
+            h_{11}&h_{12}&\cdots&h_{1n}\\
+            h_{21}&h_{22}&\cdots&h_{2n}\\
+            &\ddots&\ddots&\vdots&\\
+            &&h_{n-1,n}&h_{nn}&\\
+        \end{bmatrix}
+    \end{equation}
+    and the diagonal matrix 
+    \begin{equation}
+        D=\text{diag}\{d_{1},d_{2},\cdots,d_{n}\}.
+    \end{equation}
+    As the subdiagonal elements of $D^{-1}HD$ are all 1, we can see that:
+    \begin{equation}
+        \frac{d_{i+1}}{d_{i}}=h_{i+1,i},i\in[1,n-1].
+    \end{equation}
+    It derives the value of matrix $D$. Its condition number:
+    \begin{equation}
+        \kappa_{2}(D)=\frac{\max\prod_{i}|h_{i,i-1}|}{\min\prod_{i}|h_{i,i-1}|}.
+    \end{equation}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    (P383 Problem7.4.5)
+
+    Assume the eigenvector related to $\lambda$ is $X_{1}+iX_{2}$, we can see:
+    \begin{equation}
+        (W+iY)(X_{1}+iX_{2})=\lambda(X_{1}+iX_{2}).
+    \end{equation}
+    i.e.
+    \begin{equation}
+        (WX_{1}-YX_{2})+i(YX_{1}+WX_{2})=\lambda X_{1}+i\lambda X_{2}.
+    \end{equation}
+    Then:
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                WX_{1}-YX_{2}&=\lambda X_{1},\\
+                YX_{1}+WX_{2}&=\lambda X_{2}.\\
+            \end{aligned}
+        \right.
+    \end{equation}
+    i.e.
+    \begin{equation}
+        \begin{bmatrix}
+            W&-Y\\
+            Y&W\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            X_{1}\\
+            X_{2}\\
+        \end{bmatrix}
+        =\lambda\begin{bmatrix}
+            X_{1}\\
+            X_{2}\\
+        \end{bmatrix}.
+    \end{equation}
+    So $\lambda$ is an eigenvalue of $B$, with the eigenvector $\begin{bmatrix}
+        X_{1}\\
+        X_{2}\\
+    \end{bmatrix}$.
+\end{homeworkProblem}
+\end{document}
