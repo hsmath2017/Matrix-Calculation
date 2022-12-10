@@ -228,4 +228,36 @@
         X_{2}\\
     \end{bmatrix}$.
 \end{homeworkProblem}
+\begin{homeworkProblem}
+    (Page 392, Problem7.5.5)
+
+    For $j=2$, consider the induction basis:
+    \begin{equation}
+        \begin{aligned}
+        U_{1}U_{2}R_{2}R_{1}&=U_{1}(H_{2}-\mu_{2}I)R_{1}\\
+        &=U_{1}H_{2}R_{1}-\mu_{2}(H-\mu_{1}I)\\
+        &=U_{1}(R_{1}U_{1}+\mu_{1}I)R_{1}-\mu_{2}(H-\mu_{1}I)\\
+        &=(H-\mu_{1}I)^{2}+\mu_{1}(H-\mu_{1}I)-\mu_{2}(H-\mu_{1}I)\\
+        &=H^{2}-(\mu_{1}+\mu_{2})H+\mu_{1}\mu_{2}I\\
+        &=(H-\mu_{1}I)(H-\mu_{2}I).
+        \end{aligned}
+    \end{equation}
+    Assume the result holds for $j=n$, i.e. 
+    \begin{equation}
+        U_{1}\cdots U_{n}R_{n}\cdots R_{1}=(H-\mu_{1}I)\cdots(H-\mu_{n}I).
+    \end{equation}
+    Then:
+    \begin{equation}
+        U_{1}\cdots U_{n+1}R_{n+1}\cdots R_{1}=U_{1}\cdots U_{n}H_{n+1}R_{n}\cdots R_{1}-\mu_{n+1}(H-\mu_{1}I)\cdots (H-\mu_{n}I).
+    \end{equation}
+    As:
+    \begin{equation}
+        H_{j+1}R_{j}=(R_{j}U_{j}+\mu_{j}I)R_{j}=R_{j}(\mu_{j}I+U_{j}R_{j})=R_{j}H_{j}.
+    \end{equation}
+    It means that:
+    \begin{equation}
+        U_{1}\cdots U_{n}H_{n+1}R_{n}\cdots R_{1}=U_{1}\cdots U_{n}R_{n}\cdots R_{1}H.
+    \end{equation}
+    So the result holds for $j=n+1$.
+\end{homeworkProblem}
 \end{document}
